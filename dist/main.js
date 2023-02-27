@@ -7,7 +7,7 @@ var loadFile = function (event) {
 
 // set click events on all SVG nodes that have a <title> element.
 function setSvgEvents() {
-    console.log("Setting events");
+    log("Scanning SVG for elements with &lt;title&gt;");
     // get the inner DOM of alpha.svg
     var svgDoc = a.contentDocument;
     // get the inner element by id
@@ -30,16 +30,17 @@ function setSvgEvents() {
             function addEventHandler(event_type, elem, title) {
                 elem.addEventListener(event_type, function (e) {
                     var msg = e.type + "_" + title + ";";
-                    log(msg);
+                    log("Sending : " + msg);
                     globalThis.services.uartService.send(enc.encode(msg)).then(x => console.log("message sent"));
                 }, false);
-
+            
             }
             addEventHandler("click", thisNode, title);
             addEventHandler("mousedown", thisNode, title);
             addEventHandler("mouseup", thisNode, title);
         }
     }
+    log("---------------");
 
 
 }
