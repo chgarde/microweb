@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>micro:bit</title>
+    <script type="text/javascript" src="microbit-web-bluetooth.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <h1>Micro:bit Bluetooth Control Panel</h1>
+    </div>
+    <p>Instructions :
+        <ul>
+            <li>Prepare an svg file (with inkscape for example). On every object that you want to be clickable, set the
+                &lt;Title&gt; property.</li>
+            <li>Upload the file to this page, and check that all your clickable objects are found.</li>
+            <li>Activate Bluetooth on your PC, and click connect to connect to your microbit</li>
+            <li>Play with the buttons !</li>
+        </ul>
+        <p>
+            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"></p>
+        <div>
+            <button id="connect">Connect</button>
+        </div>
+        <div style="width:75%;float:left;border:solid">
+            <object type="image/svg+xml" data="images/grue-controle.svg" id="drawing"> </object>
+        </div>
+
+        <div id="log" style="float: left;white-space: pre; width:20%; margin-left: 20px;border: solid">
+        </div>
+</body>
+<script type="text/javascript" src="main.js"></script>
+
+</html>
