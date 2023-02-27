@@ -21,3 +21,6 @@ https://github.com/WebBluetoothCG/web-bluetooth/blob/main/implementation-status.
 on Linux, experimental features must be enabled :
 chrome://flags/#enable-experimental-web-platform-features
 
+## Micro:bit makecode
+https://github.com/chgarde/gruebt2
+https://makecode.microbit.org/_f6d5DPdAdRfc
