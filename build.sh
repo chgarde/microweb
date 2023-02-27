@@ -7,3 +7,4 @@ npm update
 ./node_modules/.bin/browserify src/forbrowserify.js -s microbit > dist/microbit-web-bluetooth.js
 
 cp src/index.html src/main.js dist/
+cp -av src/images dist/
