@@ -27,17 +27,24 @@ function setSvgEvents() {
         if (title != "") {
             log("Found " + title);
 
-            function addEventHandler(event_type, elem, title) {
+            function addEventHandler(event_type, msg, elem, title) {
                 elem.addEventListener(event_type, function (e) {
-                    var msg = e.type + "_" + title + ";";
-                    log("Sending : " + msg);
-                    globalThis.services.uartService.send(enc.encode(msg)).then(x => console.log("message sent"));
+                    if (!(/touch/.test(e.type) && (e.touches.length !== e.targetTouches.length))) {
+                        var finalmsg = msg + "_" + title + ";";
+                        log("Sending : " + finalmsg);
+                        globalThis.services.uartService.send(enc.encode(finalmsg)).then(x => console.log("message sent"));
+                    }else{
+                        log("your fingers are too big...");
+                    }
                 }, false);
-            
+
             }
-            addEventHandler("click", thisNode, title);
-            addEventHandler("mousedown", thisNode, title);
-            addEventHandler("mouseup", thisNode, title);
+            addEventHandler("click", "click", thisNode, title);
+            addEventHandler("mousedown", "down", thisNode, title);
+            addEventHandler("mouseup", "up", thisNode, title);
+            addEventHandler("touchstart", "down", thisNode, title);
+            addEventHandler("touchend", "up", thisNode, title);
+            addEventHandler("touchcancel", "stop", thisNode, title);
         }
     }
     log("---------------");
