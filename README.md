@@ -15,12 +15,11 @@ https://chgarde.github.io/microweb/
 ## build
 use build.sh
 
-## check
-https://thegecko.github.io/microbit-web-bluetooth/docs/index.html
-https://github.com/WebBluetoothCG/web-bluetooth/blob/main/implementation-status.md
-on Linux, experimental features must be enabled :
-chrome://flags/#enable-experimental-web-platform-features
+## links
+- https://thegecko.github.io/microbit-web-bluetooth/docs/index.html
+- https://github.com/WebBluetoothCG/web-bluetooth/blob/main/implementation-status.md
+- on Linux, experimental features must be enabled : chrome://flags/#enable-experimental-web-platform-features
 
 ## Micro:bit makecode
-https://github.com/chgarde/gruebt2
-https://makecode.microbit.org/_f6d5DPdAdRfc
+- https://github.com/chgarde/gruebt2
+- https://makecode.microbit.org/_f6d5DPdAdRfc
