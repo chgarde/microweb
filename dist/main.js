@@ -75,6 +75,7 @@ document.getElementById("connect").onclick = async () => {
         }
 
         if (services.uartService) {
+            services.uartService.addEventListener("receiveText :", eventHandler);
             console.log("UART Service => OK");
         }
     }
