@@ -5,10 +5,15 @@ var loadFile = function (event) {
     console.log("img loaded");
 };
 
+function sendMsg(msg) {
+    log("Sending : " + msg);
+    globalThis.services.uartService.send(enc.encode(msg)).then(x => console.log("message sent"));
+}
 // set click events on all SVG nodes that have a <title> element.
 function setSvgEvents() {
     log("Scanning SVG for elements with &lt;title&gt;");
     // get the inner DOM of alpha.svg
+    // please note that this will not work if index.html is opened locally. Please serve the files with a webserver.
     var svgDoc = a.contentDocument;
     // get the inner element by id
     r = svgDoc.evaluate("//*[local-name()='title']/..", svgDoc, null, XPathResult
@@ -18,23 +23,32 @@ function setSvgEvents() {
     for (let i = 0, length = r.snapshotLength; i < length; ++i) {
         var thisNode = r.snapshotItem(i)
         var title = "";
+        var keyEvent = "";
         for (const child of thisNode.children) {
             if (child.tagName == "title") {
                 title = child.textContent;
+                keyCode = thisNode.getAttributeNodeNS("http://www.inkscape.org/namespaces/inkscape", "label").value;
                 break;
             }
         }
         if (title != "") {
             log("Found " + title);
 
-            function addEventHandler(event_type, msg, elem, title) {
+            function addEventHandler(event_type, msg, elem, title, keyCode) {
                 elem.addEventListener(event_type, function (e) {
-                    if (!(/touch/.test(e.type) && (e.touches.length !== e.targetTouches.length))) {
-                        var finalmsg = msg + "_" + title + ";";
-                        log("Sending : " + finalmsg);
-                        globalThis.services.uartService.send(enc.encode(finalmsg)).then(x => console.log("message sent"));
-                    }else{
-                        log("your fingers are too big...");
+                    var finalmsg = msg + "_" + title + ";";
+                    if (e.type == 'keydown' || e.type == 'keyup') {
+                        if (e.code == keyCode) {
+                            if (!e.repeat) {
+                                sendMsg(finalmsg);
+                            }
+                        }
+                    } else {
+                        if (!(/touch/.test(e.type) && (e.touches.length !== e.targetTouches.length))) {
+                            sendMsg(finalmsg);
+                        } else {
+                            log("your fingers are too big...");
+                        }
                     }
                 }, false);
 
@@ -45,6 +59,13 @@ function setSvgEvents() {
             addEventHandler("touchstart", "down", thisNode, title);
             addEventHandler("touchend", "up", thisNode, title);
             addEventHandler("touchcancel", "stop", thisNode, title);
+            //key events
+            if (keyCode != "") {
+                console.log("adding events");
+                addEventHandler("keydown", "down", document, title, keyCode);
+                addEventHandler("keyup", "up", document, title, keyCode);
+            }
+
         }
     }
     log("---------------");

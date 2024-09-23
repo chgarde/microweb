@@ -2,8 +2,10 @@
 The objective of this project is to control the micro:bit using a web interface + bluetooth web API.
 
 the user provides an SVG file, prepared with inkscape for example.
-
-This SVG will be scanned, and every object that has a "title" will become clickable.
+In the SVG :
+* put a "title" property => when clicked a message will be sent to microbit
+* put a [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) "label" property to send a message when key is pressed.
+    * example: ArrowRight, ArrowLeft, ArrowUp, ArrowDown, Space
 
 The user must connect to micro:bit
 
